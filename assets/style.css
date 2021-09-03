@@ -19,7 +19,7 @@ h1 {
     flex: auto
 }
 
-span.severe {
+span.extreme {
     padding: 3px;
     background-color: red;
     color: white;
@@ -30,7 +30,7 @@ span.moderate {
     background-color: yellow;
 }
 
-span.favorable {
+span.low {
     padding: 3px;
     background-color: green;
     color: white;

@@ -11,6 +11,7 @@ var pastSearchBtn = document.querySelector("#past-search-buttons");
 //api key
 var apiKey = "8e2c8f13d0656ae12ccf74b7b312eb78"
 
+
 var formSumbitHandler = function(event) {
     event.preventDefault();
     var city = cityEl.value.trim();
@@ -39,6 +40,7 @@ var getCityWeather = function(city) {
         });
 };
 
+//city search + current date
 var displayWeather = function(weather, searchCity) {
     currentWeatherEl.textContent = "";
     searchInputEl.textContent = searchCity;
@@ -51,6 +53,7 @@ var displayWeather = function(weather, searchCity) {
     weatherIcon.setAttribute("src", `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`);
     searchInputEl.appendChild(weatherIcon);
 
+    // city temp, humidity, wind speed, and UV index
     var temperatureEl = document.createElement("span");
     temperatureEl.textContent = "Temperature: " + weather.main.temp + " °F";
     temperatureEl.classList = "list-group-item"
@@ -84,6 +87,7 @@ var getUvIndex = function(lat, lon) {
         });
 }
 
+// uv index warnings
 var displayUvIndex = function(index) {
     var uvIndexEl = document.createElement("div");
     uvIndexEl.textContent = "UV Index: "
@@ -93,11 +97,11 @@ var displayUvIndex = function(index) {
     uvIndexValue.textContent = index.value
 
     if (index.value <= 2) {
-        uvIndexValue.classList = "favorable"
+        uvIndexValue.classList = "low"
     } else if (index.value > 2 && index.value <= 8) {
         uvIndexValue.classList = "moderate "
     } else if (index.value > 8) {
-        uvIndexValue.classList = "severe"
+        uvIndexValue.classList = "extreme"
     };
 
     uvIndexEl.appendChild(uvIndexValue);
@@ -105,6 +109,7 @@ var displayUvIndex = function(index) {
     currentWeatherEl.appendChild(uvIndexEl);
 }
 
+// get + display 5-day forecast
 var get5Day = function(city) {
     var apiURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${apiKey}`
 
@@ -156,6 +161,7 @@ var display5Day = function(weather) {
 
 }
 
+//save search + link to previously searched city
 var pastSearch = function(pastSearch) {
 
     pastSearchEl = document.createElement("button");
