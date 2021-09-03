@@ -1,21 +1,21 @@
 var cities = [];
 
-var cityFormEl = document.querySelector("#city-search-form");
-var cityInputEl = document.querySelector("#city");
-var weatherContainerEl = document.querySelector("#current-weather-container");
-var citySearchInputEl = document.querySelector("#searched-city");
-var forecastTitle = document.querySelector("#forecast");
-var forecastContainerEl = document.querySelector("#fiveday-container");
-var pastSearchButtonEl = document.querySelector("#past-search-buttons");
+var citySearchEl = document.querySelector("#city-search-form");
+var cityEl = document.querySelector("#city");
+var currentWeatherEl = document.querySelector("#current-weather-container");
+var searchInputEl = document.querySelector("#searched-city");
+var showForecast = document.querySelector("#forecast");
+var fiveDayForcast = document.querySelector("#fiveday-container");
+var pastSearchBtn = document.querySelector("#past-search-buttons");
 
 var formSumbitHandler = function(event) {
     event.preventDefault();
-    var city = cityInputEl.value.trim();
+    var city = cityEl.value.trim();
     if (city) {
         getCityWeather(city);
         get5Day(city);
         cities.unshift({ city });
-        cityInputEl.value = "";
+        cityEl.value = "";
     } else {
         alert("Please enter a City");
     }
@@ -41,20 +41,20 @@ var getCityWeather = function(city) {
 
 var displayWeather = function(weather, searchCity) {
     //clear old content
-    weatherContainerEl.textContent = "";
-    citySearchInputEl.textContent = searchCity;
+    currentWeatherEl.textContent = "";
+    searchInputEl.textContent = searchCity;
 
     //console.log(weather);
 
     //create date element
     var currentDate = document.createElement("span")
     currentDate.textContent = " (" + moment(weather.dt.value).format("MMM D, YYYY") + ") ";
-    citySearchInputEl.appendChild(currentDate);
+    searchInputEl.appendChild(currentDate);
 
     //create an image element
     var weatherIcon = document.createElement("img")
     weatherIcon.setAttribute("src", `https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`);
-    citySearchInputEl.appendChild(weatherIcon);
+    searchInputEl.appendChild(weatherIcon);
 
     //create a span element to hold temperature data
     var temperatureEl = document.createElement("span");
@@ -72,13 +72,13 @@ var displayWeather = function(weather, searchCity) {
     windSpeedEl.classList = "list-group-item"
 
     //append to container
-    weatherContainerEl.appendChild(temperatureEl);
+    currentWeatherEl.appendChild(temperatureEl);
 
     //append to container
-    weatherContainerEl.appendChild(humidityEl);
+    currentWeatherEl.appendChild(humidityEl);
 
     //append to container
-    weatherContainerEl.appendChild(windSpeedEl);
+    currentWeatherEl.appendChild(windSpeedEl);
 
     var lat = weather.coord.lat;
     var lon = weather.coord.lon;
@@ -118,7 +118,7 @@ var displayUvIndex = function(index) {
     uvIndexEl.appendChild(uvIndexValue);
 
     //append index to current weather
-    weatherContainerEl.appendChild(uvIndexEl);
+    currentWeatherEl.appendChild(uvIndexEl);
 }
 
 var get5Day = function(city) {
@@ -134,8 +134,8 @@ var get5Day = function(city) {
 };
 
 var display5Day = function(weather) {
-    forecastContainerEl.textContent = ""
-    forecastTitle.textContent = "5-Day Forecast:";
+    fiveDayForcast.textContent = ""
+    showForecast.textContent = "5-Day Forecast:";
 
     var forecast = weather.list;
     for (var i = 5; i < forecast.length; i = i + 8) {
@@ -179,7 +179,7 @@ var display5Day = function(weather) {
 
         // console.log(forecastEl);
         //append to five day container
-        forecastContainerEl.appendChild(forecastEl);
+        fiveDayForcast.appendChild(forecastEl);
     }
 
 }
@@ -194,7 +194,7 @@ var pastSearch = function(pastSearch) {
     pastSearchEl.setAttribute("data-city", pastSearch)
     pastSearchEl.setAttribute("type", "submit");
 
-    pastSearchButtonEl.prepend(pastSearchEl);
+    pastSearchBtn.prepend(pastSearchEl);
 }
 
 
@@ -208,5 +208,5 @@ var pastSearchHandler = function(event) {
 
 // pastSearch();
 
-cityFormEl.addEventListener("submit", formSumbitHandler);
-pastSearchButtonEl.addEventListener("click", pastSearchHandler);
+citySearchEl.addEventListener("submit", formSumbitHandler);
+pastSearchBtn.addEventListener("click", pastSearchHandler);
