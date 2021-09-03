@@ -150,6 +150,12 @@ var display5Day = function(weather) {
 
         forecastEl.appendChild(forecastTempEl);
 
+        var forecastWindEl = document.createElement("span");
+        forecastWindEl.classList = "card-body text-center";
+        forecastWindEl.textContent = dailyForecast.wind.speed + " MPH";
+
+        forecastEl.appendChild(forecastWindEl);
+
         var forecastHumEl = document.createElement("span");
         forecastHumEl.classList = "card-body text-center";
         forecastHumEl.textContent = dailyForecast.main.humidity + "  %";
