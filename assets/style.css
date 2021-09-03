@@ -1,5 +1,13 @@
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
 .search-column {
-    background-color: #D3D3D3;
+    background-color: white;
+}
+
+h1 {
+    font-size: 60px;
 }
 
 .list-group-item {
